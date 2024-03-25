@@ -78,7 +78,7 @@ public class YahooFinanceDataRetrievalJob implements Runnable{
 		return historicalData;
 	}
 
-	private static JsonNode getJsonNode(String jsonString) {
+	private JsonNode getJsonNode(String jsonString) {
 		ObjectMapper obj = new ObjectMapper();
 		JsonNode jsonNode = null;
 		try {
@@ -91,7 +91,7 @@ public class YahooFinanceDataRetrievalJob implements Runnable{
 		return jsonNode;
 	}
 
-	private static HistoricalData getMonthlyInfo(JsonNode resultNode, HistoricalData hd) {
+	private HistoricalData getMonthlyInfo(JsonNode resultNode, HistoricalData hd) {
 		List<MonthlyInfo> mInfoList = new ArrayList<>();
 		mInfoList = retrieveMonthlyDates(resultNode.get("timestamp"), mInfoList);
 		hd.setCurrentMonthInfoList(mInfoList);
@@ -110,7 +110,7 @@ public class YahooFinanceDataRetrievalJob implements Runnable{
 		return hd;
 	}
 
-	private static List<MonthlyInfo> retrieveMonthlyDates(JsonNode timestampNode, List<MonthlyInfo> months) {
+	private List<MonthlyInfo> retrieveMonthlyDates(JsonNode timestampNode, List<MonthlyInfo> months) {
 		for (JsonNode node : timestampNode) {
 			long unix_seconds = Long.parseLong(node.asText());
 			Date date = new Date(unix_seconds * 1000L);
@@ -123,7 +123,7 @@ public class YahooFinanceDataRetrievalJob implements Runnable{
 		return months;
 	}
 
-	private static HistoricalData retrieveMonthlyVolumes(JsonNode volumeNode, HistoricalData hd) {
+	private HistoricalData retrieveMonthlyVolumes(JsonNode volumeNode, HistoricalData hd) {
 		List<MonthlyInfo> mInfoList = hd.getCurrentMonthInfoList();
 		int size = mInfoList.size();
 		int index = 0;
@@ -141,7 +141,7 @@ public class YahooFinanceDataRetrievalJob implements Runnable{
 		return hd;
 	}
 
-	private static HistoricalData retrieveMonthlyHigh(JsonNode volumeNode, HistoricalData hd) {
+	private HistoricalData retrieveMonthlyHigh(JsonNode volumeNode, HistoricalData hd) {
 		List<MonthlyInfo> mInfoList = hd.getCurrentMonthInfoList();
 		int size = mInfoList.size();
 		int index = 0;
@@ -162,7 +162,7 @@ public class YahooFinanceDataRetrievalJob implements Runnable{
 		return hd;
 	}
 
-	private static HistoricalData retrieveMonthlyClose(JsonNode closeNode, HistoricalData hd) {
+	private HistoricalData retrieveMonthlyClose(JsonNode closeNode, HistoricalData hd) {
 		List<MonthlyInfo> mInfoList = hd.getCurrentMonthInfoList();
 		int size = mInfoList.size();
 		int index = 0;
@@ -183,7 +183,7 @@ public class YahooFinanceDataRetrievalJob implements Runnable{
 		return hd;
 	}
 
-	private static HistoricalData retrieveMonthlyOpen(JsonNode openNode, HistoricalData hd) {
+	private HistoricalData retrieveMonthlyOpen(JsonNode openNode, HistoricalData hd) {
 		List<MonthlyInfo> mInfoList = hd.getCurrentMonthInfoList();
 		int size = mInfoList.size();
 		int index = 0;
@@ -207,7 +207,7 @@ public class YahooFinanceDataRetrievalJob implements Runnable{
 		return hd;
 	}
 
-	private static HistoricalData retrieveMonthlyLow(JsonNode lowNode, HistoricalData hd) {
+	private HistoricalData retrieveMonthlyLow(JsonNode lowNode, HistoricalData hd) {
 		List<MonthlyInfo> mInfoList = hd.getCurrentMonthInfoList();
 		int size = mInfoList.size();
 		int index = 0;
