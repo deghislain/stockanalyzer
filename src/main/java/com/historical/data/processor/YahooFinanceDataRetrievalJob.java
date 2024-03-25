@@ -6,6 +6,7 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -14,6 +15,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.historical.data.model.HistoricalData;
 import com.historical.data.model.MonthlyInfo;
+import com.stockanalyzer.utils.UniqueIdGenerator;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -67,6 +69,8 @@ public class YahooFinanceDataRetrievalJob implements Runnable{
 						thData.setSymbol(meta.get("symbol").asText());
 					}
 					thData.setHistoricalDate(LocalDate.now());
+					UUID hdId = UniqueIdGenerator.generate();
+					thData.setHistoricalDataId(hdId.toString());
 					historicalData = getMonthlyInfo(rn, thData);
 				});
 
@@ -92,8 +96,7 @@ public class YahooFinanceDataRetrievalJob implements Runnable{
 	}
 
 	private HistoricalData getMonthlyInfo(JsonNode resultNode, HistoricalData hd) {
-		List<MonthlyInfo> mInfoList = new ArrayList<>();
-		mInfoList = retrieveMonthlyDates(resultNode.get("timestamp"), mInfoList);
+		List<MonthlyInfo> mInfoList = retrieveMonthlyDates(resultNode.get("timestamp"), hd.getHistoricalDataId());
 		hd.setCurrentMonthInfoList(mInfoList);
 		JsonNode indicatorsNode = resultNode.get("indicators");
 		JsonNode quotesNode = indicatorsNode.get("quote");
@@ -110,7 +113,8 @@ public class YahooFinanceDataRetrievalJob implements Runnable{
 		return hd;
 	}
 
-	private List<MonthlyInfo> retrieveMonthlyDates(JsonNode timestampNode, List<MonthlyInfo> months) {
+	private List<MonthlyInfo> retrieveMonthlyDates(JsonNode timestampNode, String histDataId) {
+		List<MonthlyInfo> mInfoList = new ArrayList<>();
 		for (JsonNode node : timestampNode) {
 			long unix_seconds = Long.parseLong(node.asText());
 			Date date = new Date(unix_seconds * 1000L);
@@ -118,9 +122,12 @@ public class YahooFinanceDataRetrievalJob implements Runnable{
 			LocalDate lDate = LocalDate.ofInstant(date.toInstant(), ZoneId.systemDefault());
 			mi.setCurrentDate(date);
 			mi.setCurrentMonth(lDate.getMonth().name());
-			months.add(mi);
+			UUID minfoId = UniqueIdGenerator.generate();
+			mi.setMonthlyInfoId(minfoId.toString());
+			mi.setHistoricalDataId(histDataId);
+			mInfoList.add(mi);
 		}
-		return months;
+		return mInfoList;
 	}
 
 	private HistoricalData retrieveMonthlyVolumes(JsonNode volumeNode, HistoricalData hd) {

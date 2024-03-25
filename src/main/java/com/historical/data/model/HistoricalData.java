@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class HistoricalData {
+	 private String historicalDataId;
 	 private LocalDate historicalDate;
      private double open;
      private double avgOpen;
@@ -19,6 +20,13 @@ public class HistoricalData {
      private List<MonthlyInfo> currentMonthInfoList;
 	
      
+    
+	public String getHistoricalDataId() {
+		return historicalDataId;
+	}
+	public void setHistoricalDataId(String historicalDataId) {
+		this.historicalDataId = historicalDataId;
+	}
 	public LocalDate getHistoricalDate() {
 		return historicalDate;
 	}
@@ -105,6 +113,7 @@ public class HistoricalData {
 	                ", historicalDate='" + historicalDate + '\'' +
 	                ", open=" + open +
 	                ", close=" + close +
+	                ", historicalDataId=" + historicalDataId +
 	                '}';
 	    }
 }

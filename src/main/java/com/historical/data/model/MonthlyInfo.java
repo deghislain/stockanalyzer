@@ -3,6 +3,8 @@ package com.historical.data.model;
 import java.util.Date;
 
 public class MonthlyInfo {
+	private String monthlyInfoId;
+	private String historicalDataId;
 	private String currentMonth;
 	 private Date currentDate;
      private double monthOpen;
@@ -12,6 +14,20 @@ public class MonthlyInfo {
      private long monthVolume;
      
      
+     
+    
+	public String getMonthlyInfoId() {
+		return monthlyInfoId;
+	}
+	public void setMonthlyInfoId(String monthlyInfoId) {
+		this.monthlyInfoId = monthlyInfoId;
+	}
+	public String getHistoricalDataId() {
+		return historicalDataId;
+	}
+	public void setHistoricalDataId(String historicalDataId) {
+		this.historicalDataId = historicalDataId;
+	}
 	public String getCurrentMonth() {
 		return currentMonth;
 	}
