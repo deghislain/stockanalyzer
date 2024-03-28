@@ -39,7 +39,7 @@ public class YahooFinanceDataRetrievalJob implements Runnable{
 	@Override
 	public void run() {
 		log.info("Yahoo Finance Data Retrieval Job started");
-		HistoricalData hd = getHistoricalData(symbolsQueue.getFirst(),stockRange, stockInterval);
+		HistoricalData hd = getHistoricalData(symbolsQueue.pollFirst(),stockRange, stockInterval);
 		this.historicalDataQueue.add(hd);
 		log.info("Yahoo Finance Data Retrieval Job Ended");
 	}
