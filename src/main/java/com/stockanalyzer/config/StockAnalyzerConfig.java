@@ -3,7 +3,7 @@ package com.stockanalyzer.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.historical.data.processor.YahooFinanceDataProcessor;
+import com.stockanalyzer.processor.YahooFinanceDataProcessor;
 
 @Configuration
 public class StockAnalyzerConfig {

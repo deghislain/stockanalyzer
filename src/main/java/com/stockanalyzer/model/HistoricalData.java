@@ -1,4 +1,4 @@
-package com.historical.data.model;
+package com.stockanalyzer.model;
 
 import java.time.LocalDate;
 import java.util.List;

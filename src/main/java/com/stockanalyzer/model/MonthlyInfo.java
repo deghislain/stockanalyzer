@@ -1,4 +1,4 @@
-package com.historical.data.model;
+package com.stockanalyzer.model;
 
 import java.util.Date;
 
@@ -71,5 +71,16 @@ public class MonthlyInfo {
 	public void setMonthVolume(long monthVolume) {
 		this.monthVolume = monthVolume;
 	}
+	
+	 @Override
+	    public String toString() {
+	        return "MonthlyInfo{" +
+	                "monthlyInfoId='" + monthlyInfoId + '\'' +
+	                ", historicalDataId='" + historicalDataId + '\'' +
+	                ", currentMonth=" + currentMonth +
+	                ", currentDate=" + currentDate +
+	                ", monthOpen=" + monthOpen +
+	                '}';
+	    }
 	
 }

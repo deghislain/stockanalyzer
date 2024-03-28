@@ -1,4 +1,4 @@
-package com.historical.data.processor;
+package com.stockanalyzer.processor;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -13,8 +13,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.historical.data.model.HistoricalData;
-import com.historical.data.model.MonthlyInfo;
+import com.stockanalyzer.model.HistoricalData;
+import com.stockanalyzer.model.MonthlyInfo;
 import com.stockanalyzer.utils.UniqueIdGenerator;
 
 import lombok.extern.slf4j.Slf4j;

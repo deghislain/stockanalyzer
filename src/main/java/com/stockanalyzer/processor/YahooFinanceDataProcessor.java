@@ -1,4 +1,4 @@
-package com.historical.data.processor;
+package com.stockanalyzer.processor;
 
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.Executors;
@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Value;
 
-import com.historical.data.model.HistoricalData;
+import com.stockanalyzer.model.HistoricalData;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -40,6 +40,8 @@ public class YahooFinanceDataProcessor {
 		// Schedule the job to run every Month
 		scheduler.scheduleAtFixedRate(new YahooFinanceDataRetrievalJob(this.symbolsQueue, this.historicalDataQueue, stockRange, stockInterval), 0,
 				30, TimeUnit.DAYS);
+		scheduler.scheduleAtFixedRate(new YahooFinanceDataPersisterJob(this.historicalDataQueue), 0, 30,
+				TimeUnit.DAYS);
 
 		log.info("Stock Processing End");
 	}
